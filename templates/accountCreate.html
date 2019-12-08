@@ -1,0 +1,35 @@
+<h1>Don't go hungry!</h1>
+<h2>Signup up and order your pizzas.</h2>
+
+<div class="formWrapper">
+  <form id="accountCreate" action="/api/users" method="POST">
+    <div class="formError"></div>
+    <div class="inputWrapper">
+      <div class="inputLabel">First Name</div>
+      <input type="text" name="firstName" placeholder="John" />
+    </div>
+    <div class="inputWrapper">
+      <div class="inputLabel">Last Name</div>
+      <input type="text" name="lastName" placeholder="Smith" />
+    </div>
+    <div class="inputWrapper">
+      <div class="inputLabel">email</div>
+      <input type="email" name="email" placeholder="hello@world.com" />
+    </div>
+    <div class="inputWrapper">
+      <div class="inputLabel">Choose a Password</div>
+      <input type="password" name="password" placeholder="Make it a good one!" />
+    </div>
+    <div class="inputWrapper">
+        <div class="inputLabel">Street</div>
+        <input type="text" name="street" placeholder="Gluhova" />
+    </div>
+    <div class="inputWrapper">
+        <div class="inputLabel">House #</div>
+        <input class="intval" type="number" name="house" placeholder="1" min="1"/>
+    </div>
+    <div class="inputWrapper ctaWrapper">
+      <button type="submit" class="cta blue">Get Started</button>
+    </div>
+  </form>
+</div>
