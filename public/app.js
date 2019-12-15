@@ -117,15 +117,15 @@ app.bindForms = () => {
       let queryStringObject;
 
       // Hide the error message (if it's currently shown due to a previous error)
-      const error = document.querySelector(`#${formId}.formError`);
+      const error = document.querySelector(`#${formId} .formError`);
       if (error) {
-        error.style.display = 'hidden';
+        error.style.display = 'none';
       }
 
       // Hide the success message
-      const success = document.querySelector(`#${formId}.formSuccess`);
+      const success = document.querySelector(`#${formId} .formSuccess`);
       if (success) {
-        success.style.display = 'hidden';
+        success.style.display = 'none';
       }
 
       // Turn the inputs into a payload
@@ -254,7 +254,7 @@ app.formResponseProcessor = async function (formId, requestPayload, responsePayl
   }
 
   // If forms saved successfully and they have success messages, show them
-  const formsWithSuccessMessages = ['accountEdit1', 'accountEdit2','checksEdit1'];
+  const formsWithSuccessMessages = ['accountEdit1', 'accountEdit2','checksEdit1', 'menuList'];
   if(formsWithSuccessMessages.includes(formId)){
     document.querySelector("#"+formId+" .formSuccess").style.display = 'block';
   }
@@ -317,6 +317,33 @@ app.loadDataOnPage = () => {
   // Logic for account settings page
   if (primaryClass === 'accountEdit') {
     app.loadAccountEditPage();
+  }
+
+  // Logic for menu list page
+  if (primaryClass === 'menuList') {
+    app.loadMenuListPage();
+  }
+};
+
+// Load menu list page speficically
+app.loadMenuListPage = async () => {
+  try {
+    const { statusCode, payload } = await app.client.request({
+      path: 'api/menu',
+      method: 'GET',
+    });
+
+    const select = document.querySelector('#pizzaSelector');
+
+    payload.forEach(pizza => {
+      const option = document.createElement('option');
+      option.value = pizza._id;
+      option.innerText = `${pizza.title} for $${pizza.price}`;
+
+      select.appendChild(option);
+    })
+  } catch (error) {
+    console.warn(error);
   }
 };
 

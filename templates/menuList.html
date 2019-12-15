@@ -2,6 +2,20 @@
 <h2>You may order up to 10 pizzas in one order</h2>
 <hr />
 
-<div id="menuList">
-  hello, list
+<div class="formWrapper">
+  <form id="menuList" action="/api/cart" method="POST">
+    <div class="formError"></div>
+    <div class="formSuccess">Your pizza is added to the cart</div>
+    <div class="inputWrapper">
+      <div class="inputLabel">Pizza:</div>
+      <select name="item" id="pizzaSelector"></select>
+    </div>
+    <div class="inputWrapper">
+      <div class="inputLabel">Quantity:</div>
+      <input class="intval" type="number" min="1" max="10" placeholder="1" name="quantity">
+    </div>
+    <div class="inputWrapper ctaWrapper">
+      <button type="submit" class="cta blue">Add to cart!</button>
+    </div>
+  </form>
 </div>
