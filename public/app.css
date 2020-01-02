@@ -34,7 +34,6 @@ body,p,h1,h2,h3,h4,h5,h6,div,span,header,footer,img,a,a:hover,a:active,a:visited
   left: 0;
   width: 100%;
   padding: 20px 0;
-  min-width: 1200px;
 }
 
 .header ul{
@@ -200,6 +199,31 @@ body.index .blurb{
   border-color: #35c06d;
   border-width: 2px;
   border-style: solid;
+}
+
+.cart__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #808080;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.item__title, .item__total {
+  font-size: 13px;
+  display: block;
+  padding: 5px;
+}
+
+.item__title {
+  font-weight: 700;
+}
+
+.item__total {
+  font-weight: 300;
 }
 
 hr {

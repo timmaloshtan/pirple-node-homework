@@ -323,6 +323,58 @@ app.loadDataOnPage = () => {
   if (primaryClass === 'menuList') {
     app.loadMenuListPage();
   }
+
+  // Logic for my cart page
+  if (primaryClass === 'myCart') {
+    app.loadMyCartPage();
+  }
+};
+
+// Load cart page specifically
+app.loadMyCartPage = async () => {
+  try {
+    const { statusCode: cartStatusCode, payload: cartPayload } = await app.client.request({
+      path: 'api/cart',
+      method: 'GET',
+    });
+
+    if (cartStatusCode !== 200) {
+      throw new Error(`Got a ${cartStatusCode} response :(`);
+    }
+
+    const { statusCode: menuStatusCode, payload: menuPayload } = await app.client.request({
+      path: 'api/menu',
+      method: 'GET',
+    });
+
+    if (menuStatusCode !== 200) {
+      throw new Error(`Got a ${menuStatusCode} response :(`);
+    }
+
+    console.log('menuPayload :', menuPayload);
+    console.log('cartPayload :', cartPayload);
+
+    const form = document.querySelector('.formWrapper');
+
+    menuPayload.filter(item => cartPayload[item._id]).forEach(item => {
+      const element = document.createElement('div');
+      element.className = "cart__item";
+
+      element.innerHTML = `
+        <div class="item__details">
+          <span class="item__title">${item.title} X ${cartPayload[item._id]}</span>
+          <span class="item__total">${cartPayload[item._id] * item.price}</span>
+        </div>
+        <div class="item__actions">
+          <button class="cta red" id="${item._id}">Remove item</button>
+        </div>
+      `;
+
+      form.appendChild(element);
+    });
+  } catch (error) {
+    console.warn(error);
+  }
 };
 
 // Load menu list page speficically
