@@ -355,15 +355,19 @@ app.loadMyCartPage = async () => {
     console.log('cartPayload :', cartPayload);
 
     const form = document.querySelector('.formWrapper');
+    form.innerHTML = '';
+    let total = 0;
 
     menuPayload.filter(item => cartPayload[item._id]).forEach(item => {
       const element = document.createElement('div');
       element.className = "cart__item";
 
+      const itemTotal = cartPayload[item._id] * item.price;
+
       element.innerHTML = `
         <div class="item__details">
           <span class="item__title">${item.title} X ${cartPayload[item._id]}</span>
-          <span class="item__total">${cartPayload[item._id] * item.price}</span>
+          <span class="item__total">$ ${itemTotal}</span>
         </div>
         <div class="item__actions">
           <button class="cta red" id="${item._id}">Remove item</button>
@@ -371,11 +375,56 @@ app.loadMyCartPage = async () => {
       `;
 
       form.appendChild(element);
+
+      total += itemTotal;
     });
+
+    const element = document.createElement('div');
+    element.className = "cart__item";
+
+    element.innerHTML = `
+        <div class="item__details">
+          <span class="item__title">Total: </span>
+          <span class="item__total">$ ${total}</span>
+        </div>
+        <div class="item__actions">
+          <a href="checkout" class="cta green">Go to checkout!</a>
+        </div>
+      `;
+
+    form.appendChild(element);
+
+    app.bindCartButtons();
+
   } catch (error) {
     console.warn(error);
   }
 };
+
+// Bind buttons on the cart page
+app.bindCartButtons = () => {
+  const buttons = document.querySelectorAll('button.cta.red');
+  
+  buttons.forEach(button => {
+    button.addEventListener('click', removeClickHandler);
+  });
+
+  async function removeClickHandler(event) {
+    const queryStringObject = { item: this.id };
+
+    try {
+      await app.client.request({
+        path: 'api/cart',
+        method: 'DELETE',
+        queryStringObject,
+      });
+
+      window.location = '/cart';
+    } catch (error) {
+      
+    }
+  }
+}
 
 // Load menu list page speficically
 app.loadMenuListPage = async () => {
