@@ -254,7 +254,7 @@ app.formResponseProcessor = async function (formId, requestPayload, responsePayl
   }
 
   // If forms saved successfully and they have success messages, show them
-  const formsWithSuccessMessages = ['accountEdit1', 'accountEdit2','checksEdit1', 'menuList'];
+  const formsWithSuccessMessages = ['accountEdit1', 'accountEdit2','checksEdit1', 'menuList', 'checkout'];
   if(formsWithSuccessMessages.includes(formId)){
     document.querySelector("#"+formId+" .formSuccess").style.display = 'block';
   }

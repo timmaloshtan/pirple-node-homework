@@ -1,0 +1,28 @@
+<h1>Checkout</h1>
+<h2>Last step to complete and your food will be on its way to you!</h2>
+
+<div class="formWrapper">
+  <form id="checkout" action="/api/orders" method="POST">
+    <div class="formError"></div>
+    <div class="formSuccess">Your order is created!</div>
+    <div class="inputWrapper">
+      <div class="inputLabel">Carholder name</div>
+      <input type="text" name="name" placeholder="John Doe" />
+    </div>
+    <div class="inputWrapper">
+      <div class="inputLabel">Card number</div>
+      <input class="intval" type="number" name="card" placeholder="4242424242424242" />
+    </div>
+    <div class="inputWrapper">
+        <div class="inputLabel">Expiration date</div>
+        <input type="month" name="expiration" value="2022-01">
+    </div>
+    <div class="inputWrapper">
+        <div class="inputLabel">Security code</div>
+        <input class="intval" type="number" name="cvv" placeholder="000" />
+    </div>
+    <div class="inputWrapper ctaWrapper">
+      <button type="submit" class="cta green">Place order</button>
+    </div>
+  </form>
+</div>
